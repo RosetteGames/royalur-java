@@ -1,11 +1,11 @@
-# RoyalUr-Java
+# royalur-java
 
 This project provides a Java API for the play and analysis of games
 of the Royal Game of Ur. This API is designed to support many rule
 sets of the Royal Game of Ur. More documentation will be added
 here as this API is developed.
 
-* [GitHub](https://github.com/RoyalUr/RoyalUr-Java)
+* [GitHub](https://github.com/RosetteGames/royalur-java)
 * [JavaDocs](apidocs)
 
 
@@ -20,7 +20,7 @@ You can invoke the CLI using `java -jar target/royalur-VERSION.jar`
 after installation.
 
 ```
-RoyalUr-Java CLI Usage:
+royalur-java CLI Usage:
 * lut - Commands for generating and managing solved game lookup tables (luts)
     lut train: Generate a new solved game lookup-table, or refine an existing one
     lut read [file]: Read metadata about an existing solved game lookup-table
@@ -77,7 +77,7 @@ Light won the game!
 ```
 
 # 🔧 Installation
-Currently, the RoyalUr-Java library is only available through
+Currently, the royalur-java library is only available through
 building the source code using Maven. We plan to release the
 library into the central library as well, but we have had
 issues with that process that we still need to work out.

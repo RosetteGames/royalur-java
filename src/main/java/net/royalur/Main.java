@@ -12,7 +12,7 @@ public class Main extends CLIRoutingCommand {
     private static final Logger LOG = Logger.getLogger(Main.class.getName());
 
     private Main() {
-        super(null, "", "RoyalUr-Java CLI");
+        super(null, "", "royalur-java CLI");
         addSubCommand(new LutCommand(this));
         addSubCommand(new StatsCommand(this));
     }

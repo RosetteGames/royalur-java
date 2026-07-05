@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="RoyalUr-Java Logo" width="485" src="docs/res/banner.png" />
+  <img alt="royalur-java Logo" width="485" src="docs/res/banner.png" />
 </p>
 
 This library provides a Java API for the play and analysis of games of **The Royal Game of Ur**!
@@ -31,7 +31,7 @@ It is currently on display at the British Museum!
 
 * [Download solved game lookup-tables.](https://huggingface.co/sothatsit/RoyalUrModels)
 
-* Prefer Python to Java? [Check out RoyalUr-Python.](https://github.com/RoyalUr/RoyalUr-Python)
+* Prefer Python to Java? [Check out royalur-python.](https://github.com/RosetteGames/royalur-python)
 
 * [Play The Royal Game of Ur on RoyalUr.net.](https://royalur.net/)
 
@@ -39,7 +39,7 @@ It is currently on display at the British Museum!
 
 
 # 🔧 Installation
-Currently, the RoyalUr-Java library is only available through
+Currently, the royalur-java library is only available through
 building the source code using Maven. We plan to release the
 library into the central library as well, but we have had
 issues with that process that we still need to work out.
@@ -58,7 +58,7 @@ You can invoke the CLI using `java -jar target/royalur-VERSION.jar`
 after installation.
 
 ```
-RoyalUr-Java CLI Usage:
+royalur-java CLI Usage:
 * lut - Commands for generating and managing solved game lookup tables (luts)
     lut train: Generate a new solved game lookup-table, or refine an existing one
     lut read [file]: Read metadata about an existing solved game lookup-table
