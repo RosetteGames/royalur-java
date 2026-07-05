@@ -11,9 +11,6 @@ import net.royalur.rules.simple.fast.FastSimpleMoveList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * An agent that makes deterministic move choices for testing. This is not thread-safe.
- */
 public class LikelihoodAgent extends BaseAgent {
 
     /**

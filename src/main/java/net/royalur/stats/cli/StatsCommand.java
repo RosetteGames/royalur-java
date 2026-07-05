@@ -14,5 +14,6 @@ public class StatsCommand extends CLIRoutingCommand {
     public StatsCommand(CLICommand parent) {
         super(parent, NAME, DESC);
         addSubCommand(new StatsCountCommand(this));
+        addSubCommand(new StatsPlayCommand(this));
     }
 }
