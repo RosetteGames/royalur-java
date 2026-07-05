@@ -5,8 +5,8 @@ import net.royalur.model.dice.DiceFactory;
 import net.royalur.model.path.*;
 import net.royalur.model.shape.BoardShape;
 import net.royalur.model.shape.BoardType;
-import net.royalur.rules.RuleSet;
-import net.royalur.rules.RuleSetProvider;
+import net.royalur.engine.Engine;
+import net.royalur.engine.EngineProvider;
 
 /**
  * A builder to help in the creation of custom games of the Royal Game of Ur.
@@ -21,19 +21,19 @@ public class GameBuilder {
     /**
      * The provider to use to construct the final rule set.
      */
-    private final RuleSetProvider ruleSetProvider;
+    private final EngineProvider engineProvider;
 
     /**
      * Instantiates a new game builder.
      * @param settings The settings of the game being built.
-     * @param ruleSetProvider The provider to use to construct the final rule set.
+     * @param engineProvider The provider to use to construct the final rule set.
      */
     public GameBuilder(
             GameSettings settings,
-            RuleSetProvider ruleSetProvider
+            EngineProvider engineProvider
     ) {
         this.gameSettings = settings;
-        this.ruleSetProvider = ruleSetProvider;
+        this.engineProvider = engineProvider;
     }
 
     /**
@@ -48,8 +48,8 @@ public class GameBuilder {
      * Gets the provider to use to construct the final rule set.
      * @return The provider to use to construct the final rule set.
      */
-    public RuleSetProvider getRuleSetProvider() {
-        return ruleSetProvider;
+    public EngineProvider getEngineProvider() {
+        return engineProvider;
     }
 
     /**
@@ -58,7 +58,7 @@ public class GameBuilder {
      * @return A copy of this game builder with new settings.
      */
     public GameBuilder replaceSettings(GameSettings settings) {
-        return new GameBuilder(settings, ruleSetProvider);
+        return new GameBuilder(settings, engineProvider);
     }
 
     /**
@@ -199,8 +199,8 @@ public class GameBuilder {
      * Generates a rule set to match the settings in this builder.
      * @return A rule set to match the settings in this builder.
      */
-    public RuleSet buildRules() {
-        return ruleSetProvider.create(gameSettings, new GameMetadata());
+    public Engine buildRules() {
+        return engineProvider.create(gameSettings, new GameMetadata());
     }
 
     /**

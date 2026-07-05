@@ -1,6 +1,6 @@
 package net.royalur.agent.utility;
 
-import net.royalur.rules.simple.fast.FastSimpleGame;
+import net.royalur.engine.simple.fast.FastSimpleGame;
 
 /**
  * A function that is used to score game states.

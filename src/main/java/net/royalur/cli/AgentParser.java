@@ -2,7 +2,7 @@ package net.royalur.cli;
 
 import net.royalur.agent.*;
 import net.royalur.lut.Lut;
-import net.royalur.rules.RuleSet;
+import net.royalur.engine.Engine;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class AgentParser {
      * @throws CLIException if the specification is invalid
      * @throws IOException if there's an error reading a LUT file
      */
-    public static Agent parseAgent(String spec, RuleSet rules) throws CLIException, IOException {
+    public static Agent parseAgent(String spec, Engine rules) throws CLIException, IOException {
         if (spec == null || spec.isEmpty()) {
             throw new CLIArgumentException("Agent specification cannot be empty");
         }
@@ -92,7 +92,7 @@ public class AgentParser {
      * @param rules The rules to use (can be null for some agents)
      * @return The created Agent instance
      */
-    public static Agent createAgent(AgentType type, RuleSet rules) {
+    public static Agent createAgent(AgentType type, Engine rules) {
         switch (type) {
             case RANDOM:
                 return new RandomAgent();

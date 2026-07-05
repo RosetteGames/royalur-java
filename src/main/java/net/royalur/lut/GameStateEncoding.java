@@ -1,7 +1,7 @@
 package net.royalur.lut;
 
 import net.royalur.model.GameSettings;
-import net.royalur.rules.simple.fast.FastSimpleGame;
+import net.royalur.engine.simple.fast.FastSimpleGame;
 
 import javax.annotation.Nullable;
 

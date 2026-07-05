@@ -1,8 +1,8 @@
 package net.royalur.agent.utility;
 
 
-import net.royalur.rules.RuleSet;
-import net.royalur.rules.simple.fast.FastSimpleGame;
+import net.royalur.engine.Engine;
+import net.royalur.engine.simple.fast.FastSimpleGame;
 
 /**
  * Scores game states based upon how far pieces have been advanced
@@ -12,7 +12,7 @@ public class PiecesAdvancedUtilityFn extends UtilityFunction {
 
     private final int scoredPieceUtility;
 
-    public PiecesAdvancedUtilityFn(RuleSet rules) {
+    public PiecesAdvancedUtilityFn(Engine rules) {
         int pathLength = rules.getPaths().getLight().size();
         if (pathLength != rules.getPaths().getDark().size()) {
             throw new IllegalArgumentException(

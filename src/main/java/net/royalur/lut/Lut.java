@@ -7,10 +7,10 @@ import net.royalur.lut.store.DataSink;
 import net.royalur.model.GameSettings;
 import net.royalur.model.PlayerType;
 import net.royalur.notation.JsonNotation;
-import net.royalur.rules.simple.fast.FastSimpleGame;
-import net.royalur.rules.state.EndGameState;
-import net.royalur.rules.state.GameState;
-import net.royalur.rules.state.WaitingForRollGameState;
+import net.royalur.engine.simple.fast.FastSimpleGame;
+import net.royalur.engine.state.EndGameState;
+import net.royalur.engine.state.GameState;
+import net.royalur.engine.state.WaitingForRollGameState;
 
 import javax.annotation.Nullable;
 import java.io.File;

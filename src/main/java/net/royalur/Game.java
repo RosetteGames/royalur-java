@@ -4,9 +4,9 @@ import net.royalur.model.*;
 import net.royalur.model.dice.Dice;
 import net.royalur.model.dice.Roll;
 import net.royalur.model.path.PathPair;
-import net.royalur.rules.RuleSet;
-import net.royalur.rules.simple.SimpleRuleSetProvider;
-import net.royalur.rules.state.*;
+import net.royalur.engine.Engine;
+import net.royalur.engine.simple.SimpleEngineProvider;
+import net.royalur.engine.state.*;
 
 import javax.annotation.Nullable;
 import java.time.Instant;
@@ -22,7 +22,7 @@ public class Game {
     /**
      * The set of rules that are being used for this game.
      */
-    private final RuleSet rules;
+    private final Engine rules;
 
     /**
      * The metadata of this game.
@@ -47,7 +47,7 @@ public class Game {
      * @param states The states that have occurred so far in the game.
      */
     public Game(
-            RuleSet rules,
+            Engine rules,
             GameMetadata metadata,
             List<GameState> states
     ) {
@@ -66,7 +66,7 @@ public class Game {
      * Instantiates a game of the Royal Game of Ur that has not yet had any moves played.
      * @param rules The rules of the game.
      */
-    public Game(RuleSet rules) {
+    public Game(Engine rules) {
         this(
                 rules,
                 GameMetadata.startingNow(),
@@ -87,7 +87,7 @@ public class Game {
      * Instantiates a new game of the Royal Game of Ur that is timed.
      * @param rules The rules of the game.
      */
-    public static Game createTimed(RuleSet rules) {
+    public static Game createTimed(Engine rules) {
         return new Game(rules);
     }
 
@@ -95,7 +95,7 @@ public class Game {
      * Instantiates a new game of the Royal Game of Ur that is untimed.
      * @param rules The rules of the game.
      */
-    public static Game createUntimed(RuleSet rules) {
+    public static Game createUntimed(Engine rules) {
         return new Game(
                 rules,
                 new GameMetadata(),
@@ -150,7 +150,7 @@ public class Game {
      * Gets the set of rules that are being used for this game.
      * @return The set of rules that are being used for this game.
      */
-    public RuleSet getRules() {
+    public Engine getRules() {
         return rules;
     }
 
@@ -743,7 +743,7 @@ public class Game {
      * Creates a builder to assist in constructing games with custom settings.
      */
     public static GameBuilder builder() {
-        return new GameBuilder(GameSettings.FINKEL, new SimpleRuleSetProvider());
+        return new GameBuilder(GameSettings.FINKEL, new SimpleEngineProvider());
     }
 
     /**

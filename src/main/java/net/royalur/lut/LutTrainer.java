@@ -6,9 +6,9 @@ import net.royalur.lut.store.LutMap;
 import net.royalur.lut.store.OrderedUInt32BufferSet;
 import net.royalur.model.*;
 import net.royalur.notation.JsonNotation;
-import net.royalur.rules.simple.fast.FastSimpleFlags;
-import net.royalur.rules.simple.fast.FastSimpleGame;
-import net.royalur.rules.simple.fast.FastSimpleMoveList;
+import net.royalur.engine.simple.fast.FastSimpleFlags;
+import net.royalur.engine.simple.fast.FastSimpleGame;
+import net.royalur.engine.simple.fast.FastSimpleMoveList;
 
 import java.io.*;
 import java.text.DecimalFormat;

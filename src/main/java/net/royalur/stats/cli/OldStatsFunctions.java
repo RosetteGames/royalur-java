@@ -10,12 +10,12 @@ import net.royalur.cli.CLI;
 import net.royalur.lut.Lut;
 import net.royalur.model.GameMetadata;
 import net.royalur.model.GameSettings;
-import net.royalur.rules.RuleSet;
-import net.royalur.rules.simple.SimpleRuleSet;
-import net.royalur.rules.simple.SimpleRuleSetProvider;
-import net.royalur.rules.simple.fast.FastSimpleFlags;
-import net.royalur.rules.simple.fast.FastSimpleGame;
-import net.royalur.rules.simple.fast.FastSimpleMoveList;
+import net.royalur.engine.Engine;
+import net.royalur.engine.simple.SimpleEngine;
+import net.royalur.engine.simple.SimpleEngineProvider;
+import net.royalur.engine.simple.fast.FastSimpleFlags;
+import net.royalur.engine.simple.fast.FastSimpleGame;
+import net.royalur.engine.simple.fast.FastSimpleMoveList;
 import net.royalur.stats.GameStats;
 import net.royalur.stats.GameStatsSummary;
 import net.royalur.stats.GameStatsTarget;
@@ -42,12 +42,12 @@ public class OldStatsFunctions {
      */
     private GameStats testAgentActions(
             GameSettings settings,
-            Function<SimpleRuleSet, Agent> lightAgentGenerator,
-            Function<SimpleRuleSet, Agent> darkAgentGenerator
+            Function<SimpleEngine, Agent> lightAgentGenerator,
+            Function<SimpleEngine, Agent> darkAgentGenerator
     ) {
         Game game = Game.create(settings);
-        RuleSet rules = game.getRules();
-        if (!(rules instanceof SimpleRuleSet simpleRules))
+        Engine rules = game.getRules();
+        if (!(rules instanceof SimpleEngine simpleRules))
             throw new IllegalArgumentException("Game does not use simple rules");
 
         Agent light = lightAgentGenerator.apply(simpleRules);
@@ -61,8 +61,8 @@ public class OldStatsFunctions {
      */
     public void testAgentActions(
             List<GameSettings> settingsList,
-            Function<SimpleRuleSet, Agent> agent1Generator,
-            Function<SimpleRuleSet, Agent> agent2Generator,
+            Function<SimpleEngine, Agent> agent1Generator,
+            Function<SimpleEngine, Agent> agent2Generator,
             int tests,
             GameStatsTarget[] reportTargets
     ) {
@@ -319,7 +319,7 @@ public class OldStatsFunctions {
         GameSettings settings = GameSettings.FINKEL;
 
         int pieceCount = settings.getStartingPieceCount() + 1;
-        RuleSet rules = new SimpleRuleSetProvider().create(settings, new GameMetadata());
+        Engine rules = new SimpleEngineProvider().create(settings, new GameMetadata());
 
         AtomicInteger[] rollExclusivelyBestCounts = new AtomicInteger[5];
         AtomicInteger[] bestCounts = new AtomicInteger[5];

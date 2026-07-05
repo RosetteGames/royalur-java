@@ -7,8 +7,8 @@ import net.royalur.lut.buffer.UInt8ValueBuffer;
 import net.royalur.lut.store.DataSink;
 import net.royalur.lut.store.LutMap;
 import net.royalur.model.GameSettings;
-import net.royalur.rules.simple.fast.FastSimpleFlags;
-import net.royalur.rules.simple.fast.FastSimpleGame;
+import net.royalur.engine.simple.fast.FastSimpleFlags;
+import net.royalur.engine.simple.fast.FastSimpleGame;
 
 import java.io.File;
 import java.io.FileOutputStream;

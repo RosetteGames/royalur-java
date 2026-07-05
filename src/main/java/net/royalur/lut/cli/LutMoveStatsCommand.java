@@ -5,9 +5,9 @@ import net.royalur.cli.*;
 import net.royalur.lut.Lut;
 import net.royalur.lut.LutMetadata;
 import net.royalur.model.GameSettings;
-import net.royalur.rules.simple.fast.FastSimpleFlags;
-import net.royalur.rules.simple.fast.FastSimpleGame;
-import net.royalur.rules.simple.fast.FastSimpleMoveList;
+import net.royalur.engine.simple.fast.FastSimpleFlags;
+import net.royalur.engine.simple.fast.FastSimpleGame;
+import net.royalur.engine.simple.fast.FastSimpleMoveList;
 import net.royalur.stats.Histogram;
 import net.royalur.stats.StatGatherer;
 

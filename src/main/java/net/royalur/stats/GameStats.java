@@ -2,10 +2,10 @@ package net.royalur.stats;
 
 import net.royalur.Game;
 import net.royalur.model.*;
-import net.royalur.rules.state.ActionGameState;
-import net.royalur.rules.state.GameState;
-import net.royalur.rules.state.MovedGameState;
-import net.royalur.rules.state.RolledGameState;
+import net.royalur.engine.state.ActionGameState;
+import net.royalur.engine.state.GameState;
+import net.royalur.engine.state.MovedGameState;
+import net.royalur.engine.state.RolledGameState;
 
 /**
  * Statistics about a game of the Royal Game of Ur.

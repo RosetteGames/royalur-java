@@ -1,8 +1,8 @@
 package net.royalur.lut;
 
 import net.royalur.model.GameSettings;
-import net.royalur.rules.simple.fast.FastSimpleBoard;
-import net.royalur.rules.simple.fast.FastSimpleGame;
+import net.royalur.engine.simple.fast.FastSimpleBoard;
+import net.royalur.engine.simple.fast.FastSimpleGame;
 
 public class FinkelGameStateEncoding extends SimpleGameStateEncoding {
 

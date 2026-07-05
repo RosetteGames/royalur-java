@@ -2,8 +2,8 @@ package net.royalur.notation;
 
 import net.royalur.model.*;
 import net.royalur.model.dice.Roll;
-import net.royalur.rules.RuleSet;
-import net.royalur.rules.state.*;
+import net.royalur.engine.Engine;
+import net.royalur.engine.state.*;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -72,7 +72,7 @@ public class DerivedStateSource extends StateSource {
 
     @Override
     public RolledGameState createRolledState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType turn,
             Roll roll
@@ -91,7 +91,7 @@ public class DerivedStateSource extends StateSource {
 
     @Override
     public MovedGameState createMovedState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType turn,
             Roll roll,
@@ -116,7 +116,7 @@ public class DerivedStateSource extends StateSource {
 
     @Override
     public WaitingForRollGameState createWaitingForRollState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType turn
     ) {
@@ -139,7 +139,7 @@ public class DerivedStateSource extends StateSource {
 
     @Override
     public WaitingForMoveGameState createWaitingForMoveState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType turn,
             Roll roll
@@ -167,7 +167,7 @@ public class DerivedStateSource extends StateSource {
 
     @Override
     public ResignedGameState createResignedState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType player
     ) {
@@ -185,7 +185,7 @@ public class DerivedStateSource extends StateSource {
 
     @Override
     public AbandonedGameState createAbandonedState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             AbandonReason reason,
             @Nullable PlayerType player
@@ -204,7 +204,7 @@ public class DerivedStateSource extends StateSource {
 
     @Override
     public EndGameState createEndState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             @Nullable PlayerType winner
     ) {

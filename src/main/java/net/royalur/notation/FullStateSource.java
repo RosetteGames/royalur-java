@@ -2,8 +2,8 @@ package net.royalur.notation;
 
 import net.royalur.model.*;
 import net.royalur.model.dice.Roll;
-import net.royalur.rules.RuleSet;
-import net.royalur.rules.state.*;
+import net.royalur.engine.Engine;
+import net.royalur.engine.state.*;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -36,7 +36,7 @@ public class FullStateSource extends StateSource {
 
     @Override
     public RolledGameState createRolledState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType turn,
             Roll roll
@@ -52,7 +52,7 @@ public class FullStateSource extends StateSource {
 
     @Override
     public MovedGameState createMovedState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType turn,
             Roll roll,
@@ -66,7 +66,7 @@ public class FullStateSource extends StateSource {
 
     @Override
     public WaitingForRollGameState createWaitingForRollState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType turn
     ) {
@@ -78,7 +78,7 @@ public class FullStateSource extends StateSource {
 
     @Override
     public WaitingForMoveGameState createWaitingForMoveState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType turn,
             Roll roll
@@ -94,7 +94,7 @@ public class FullStateSource extends StateSource {
 
     @Override
     public ResignedGameState createResignedState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType player
     ) {
@@ -105,7 +105,7 @@ public class FullStateSource extends StateSource {
 
     @Override
     public AbandonedGameState createAbandonedState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             AbandonReason abandonReason,
             @Nullable PlayerType player
@@ -118,7 +118,7 @@ public class FullStateSource extends StateSource {
 
     @Override
     public EndGameState createEndState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             @Nullable PlayerType winner
     ) {

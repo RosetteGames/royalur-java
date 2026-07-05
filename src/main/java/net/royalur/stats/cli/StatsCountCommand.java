@@ -5,7 +5,7 @@ import net.royalur.cli.CLICommand;
 import net.royalur.cli.CLIConstants;
 import net.royalur.cli.CLIHandler;
 import net.royalur.model.GameSettings;
-import net.royalur.rules.simple.fast.FastSimpleFlags;
+import net.royalur.engine.simple.fast.FastSimpleFlags;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicLong;

@@ -1,9 +1,9 @@
 package net.royalur.lut;
 
 import net.royalur.model.GameSettings;
-import net.royalur.rules.simple.fast.FastSimpleBoard;
-import net.royalur.rules.simple.fast.FastSimpleFlags;
-import net.royalur.rules.simple.fast.FastSimpleGame;
+import net.royalur.engine.simple.fast.FastSimpleBoard;
+import net.royalur.engine.simple.fast.FastSimpleFlags;
+import net.royalur.engine.simple.fast.FastSimpleGame;
 
 import java.util.ArrayList;
 import java.util.Arrays;

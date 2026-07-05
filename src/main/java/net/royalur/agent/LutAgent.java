@@ -3,7 +3,7 @@ package net.royalur.agent;
 import net.royalur.Game;
 import net.royalur.lut.Lut;
 import net.royalur.model.*;
-import net.royalur.rules.simple.fast.FastSimpleGame;
+import net.royalur.engine.simple.fast.FastSimpleGame;
 
 import java.util.List;
 

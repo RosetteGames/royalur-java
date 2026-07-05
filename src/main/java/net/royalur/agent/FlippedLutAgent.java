@@ -5,7 +5,7 @@ import net.royalur.lut.Lut;
 import net.royalur.model.GameSettings;
 import net.royalur.model.Move;
 import net.royalur.model.PlayerType;
-import net.royalur.rules.simple.fast.FastSimpleGame;
+import net.royalur.engine.simple.fast.FastSimpleGame;
 
 import java.util.List;
 

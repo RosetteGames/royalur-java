@@ -17,10 +17,10 @@ import net.royalur.model.path.PathPairFactory;
 import net.royalur.model.path.PathType;
 import net.royalur.model.shape.BoardShapeFactory;
 import net.royalur.model.shape.BoardType;
-import net.royalur.rules.RuleSet;
-import net.royalur.rules.RuleSetProvider;
-import net.royalur.rules.simple.SimpleRuleSetProvider;
-import net.royalur.rules.state.*;
+import net.royalur.engine.Engine;
+import net.royalur.engine.EngineProvider;
+import net.royalur.engine.simple.SimpleEngineProvider;
+import net.royalur.engine.state.*;
 
 import javax.annotation.Nullable;
 import java.io.*;
@@ -244,7 +244,7 @@ public class JsonNotation implements Notation {
     private final Map<String, ? extends BoardShapeFactory> boardShapes;
     private final Map<String, ? extends PathPairFactory> pathPairs;
     private final Map<String, ? extends DiceFactory> dice;
-    private final RuleSetProvider ruleSetProvider;
+    private final EngineProvider engineProvider;
 
     /**
      * A factory to build generators to write the JSON.
@@ -261,20 +261,20 @@ public class JsonNotation implements Notation {
      * @param pathPairs The paths that can be parsed in this notation.
      * @param boardShapes The board shapes that can be parsed in this notation.
      * @param dice The dice that can be parsed in this notation.
-     * @param ruleSetProvider The provider to create rule sets from game settings.
+     * @param engineProvider The provider to create rule sets from game settings.
      * @param jsonFactory A factory to build generators to write the JSON.
      */
     public JsonNotation(
             Map<String, ? extends BoardShapeFactory> boardShapes,
             Map<String, ? extends PathPairFactory> pathPairs,
             Map<String, ? extends DiceFactory> dice,
-            RuleSetProvider ruleSetProvider,
+            EngineProvider engineProvider,
             JsonFactory jsonFactory
     ) {
         this.boardShapes = boardShapes;
         this.pathPairs = pathPairs;
         this.dice = dice;
-        this.ruleSetProvider = ruleSetProvider;
+        this.engineProvider = engineProvider;
         this.jsonFactory = jsonFactory;
         this.objectMapper = new ObjectMapper(jsonFactory);
     }
@@ -284,15 +284,15 @@ public class JsonNotation implements Notation {
      * @param pathPairs The paths that can be parsed in this notation.
      * @param boardShapes The board shapes that can be parsed in this notation.
      * @param dice The dice that can be parsed in this notation.
-     * @param ruleSetProvider The provider to create rule sets from game settings.
+     * @param engineProvider The provider to create rule sets from game settings.
      */
     public JsonNotation(
             Map<String, ? extends BoardShapeFactory> boardShapes,
             Map<String, ? extends PathPairFactory> pathPairs,
             Map<String, ? extends DiceFactory> dice,
-            RuleSetProvider ruleSetProvider
+            EngineProvider engineProvider
     ) {
-        this(boardShapes, pathPairs, dice, ruleSetProvider, JsonFactory.builder().build());
+        this(boardShapes, pathPairs, dice, engineProvider, JsonFactory.builder().build());
     }
 
     /**
@@ -303,7 +303,7 @@ public class JsonNotation implements Notation {
                 BoardType.PARSING_MAP,
                 PathType.PARSING_MAP,
                 DiceType.PARSING_MAP,
-                new SimpleRuleSetProvider()
+                new SimpleEngineProvider()
         );
     }
 
@@ -724,19 +724,19 @@ public class JsonNotation implements Notation {
         return writer.toString();
     }
 
-    public Roll readRoll(RuleSet rules, ObjectNode json) {
+    public Roll readRoll(Engine rules, ObjectNode json) {
         int rollValue = JsonHelper.readInt(json, ROLL_VALUE_KEY);
         return rules.getDiceFactory().createRoll(rollValue);
     }
 
-    public Piece readOldPiece(RuleSet rules, ObjectNode json) {
+    public Piece readOldPiece(Engine rules, ObjectNode json) {
         char ownerChar = JsonHelper.readChar(json, JsonNotation.OLD_PIECE_OWNER_KEY);
         PlayerType owner = PlayerType.getByChar(ownerChar);
         int pathIndex = JsonHelper.readInt(json, JsonNotation.OLD_PIECE_INDEX_KEY);
         return rules.getPieceProvider().create(owner, pathIndex);
     }
 
-    public @Nullable Piece readNullablePiece(RuleSet rules, ObjectNode json, String key) {
+    public @Nullable Piece readNullablePiece(Engine rules, ObjectNode json, String key) {
         JsonNode node = JsonHelper.readNullableValue(json, key);
         if (node == null)
             return null;
@@ -749,7 +749,7 @@ public class JsonNotation implements Notation {
         return rules.getPieceProvider().create(owner, pathIndex);
     }
 
-    public Piece readPiece(RuleSet rules, ObjectNode json, String key) {
+    public Piece readPiece(Engine rules, ObjectNode json, String key) {
         Piece piece = readNullablePiece(rules, json, key);
         if (piece == null)
             throw new JsonHelper.JsonTypeError("Missing " + key);
@@ -761,7 +761,7 @@ public class JsonNotation implements Notation {
         return paths.get(piece.getOwner()).get(piece.getPathIndex());
     }
 
-    public Move readMove(RuleSet rules, ObjectNode json) {
+    public Move readMove(Engine rules, ObjectNode json) {
         PathPair paths = rules.getPaths();
 
         Piece source = readNullablePiece(rules, json, MOVE_SOURCE_KEY);
@@ -782,7 +782,7 @@ public class JsonNotation implements Notation {
         );
     }
 
-    public List<Move> readMoveList(RuleSet rules, ArrayNode json) {
+    public List<Move> readMoveList(Engine rules, ArrayNode json) {
         List<Move> moves = new ArrayList<>();
         for (int index = 0; index < json.size(); ++index) {
             ObjectNode moveJson = JsonHelper.readArrayObjectEntry(json, index);
@@ -791,7 +791,7 @@ public class JsonNotation implements Notation {
         return moves;
     }
 
-    public Board readBoard(RuleSet rules, ObjectNode json) {
+    public Board readBoard(Engine rules, ObjectNode json) {
         Board board = new Board(rules.getBoardShape());
         ObjectNode piecesJson = JsonHelper.readObject(json, BOARD_PIECES_KEY);
 
@@ -806,7 +806,7 @@ public class JsonNotation implements Notation {
     }
 
     public PlayerState readPlayerState(
-            RuleSet rules,
+            Engine rules,
             PlayerType playerType,
             ObjectNode json
     ) {
@@ -837,7 +837,7 @@ public class JsonNotation implements Notation {
     }
 
     public RolledGameState readRolledState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             StateSource stateSource,
             ObjectNode json,
@@ -851,7 +851,7 @@ public class JsonNotation implements Notation {
     }
 
     public MovedGameState readMovedState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             StateSource stateSource,
             ObjectNode json,
@@ -869,7 +869,7 @@ public class JsonNotation implements Notation {
     }
 
     public WaitingForRollGameState readWaitingForRollState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             StateSource stateSource,
             ObjectNode json,
@@ -881,7 +881,7 @@ public class JsonNotation implements Notation {
     }
 
     public WaitingForMoveGameState readWaitingForMoveState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             StateSource stateSource,
             ObjectNode json,
@@ -895,7 +895,7 @@ public class JsonNotation implements Notation {
     }
 
     public ActionGameState readActionState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             StateSource stateSource,
             ObjectNode json,
@@ -916,7 +916,7 @@ public class JsonNotation implements Notation {
     }
 
     public PlayableGameState readPlayableState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             StateSource stateSource,
             ObjectNode json,
@@ -937,7 +937,7 @@ public class JsonNotation implements Notation {
     }
 
     public OngoingGameState readOngoingState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             StateSource stateSource,
             ObjectNode json,
@@ -960,7 +960,7 @@ public class JsonNotation implements Notation {
     }
 
     public ResignedGameState readResignedState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             StateSource stateSource,
             ObjectNode json,
@@ -972,7 +972,7 @@ public class JsonNotation implements Notation {
     }
 
     public AbandonedGameState readAbandonedState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             StateSource stateSource,
             ObjectNode json,
@@ -986,7 +986,7 @@ public class JsonNotation implements Notation {
     }
 
     public ControlGameState readControlState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             StateSource stateSource,
             ObjectNode json,
@@ -1012,7 +1012,7 @@ public class JsonNotation implements Notation {
     }
 
     public EndGameState readEndState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             StateSource stateSource,
             ObjectNode json
@@ -1023,7 +1023,7 @@ public class JsonNotation implements Notation {
     }
 
     public GameState readDerivedState(
-            RuleSet rules,
+            Engine rules,
             StateSource stateSource,
             ObjectNode json
     ) {
@@ -1058,7 +1058,7 @@ public class JsonNotation implements Notation {
     }
 
     public GameState readCompleteState(
-            RuleSet rules,
+            Engine rules,
             ObjectNode json
     ) {
         ObjectNode boardJson = JsonHelper.readObject(json, BOARD_KEY);
@@ -1077,7 +1077,7 @@ public class JsonNotation implements Notation {
     }
 
     public List<GameState> readStates(
-            RuleSet rules,
+            Engine rules,
             GameState initialState,
             ArrayNode json
     ) {
@@ -1147,7 +1147,7 @@ public class JsonNotation implements Notation {
 
         ObjectNode settingsJson = JsonHelper.readObject(json, SETTINGS_KEY);
         GameSettings settings = readGameSettings(settingsJson);
-        RuleSet rules = ruleSetProvider.create(settings, metadata);
+        Engine rules = engineProvider.create(settings, metadata);
 
         ObjectNode initialStateJson = JsonHelper.readObject(json, INITIAL_STATE_KEY);
         GameState initialState = readCompleteState(rules, initialStateJson);

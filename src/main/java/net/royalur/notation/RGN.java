@@ -7,10 +7,10 @@ import net.royalur.model.path.PathPairFactory;
 import net.royalur.model.path.PathType;
 import net.royalur.model.shape.BoardShapeFactory;
 import net.royalur.model.shape.BoardType;
-import net.royalur.rules.state.ActionGameState;
-import net.royalur.rules.state.MovedGameState;
-import net.royalur.rules.state.RolledGameState;
-import net.royalur.rules.RuleSet;
+import net.royalur.engine.state.ActionGameState;
+import net.royalur.engine.state.MovedGameState;
+import net.royalur.engine.state.RolledGameState;
+import net.royalur.engine.Engine;
 
 import java.util.List;
 import java.util.Map;
@@ -144,7 +144,7 @@ public class RGN implements Notation {
      * @param rolledState The state of the game that contains the dice roll to encode.
      */
     public void appendDiceRoll(
-            RuleSet rules,
+            Engine rules,
             StringBuilder builder,
             RolledGameState rolledState
     ) {
@@ -159,7 +159,7 @@ public class RGN implements Notation {
      * @param move The move to encode.
      */
     public void appendMove(
-            RuleSet rules,
+            Engine rules,
             StringBuilder builder,
             Move move
     ) {
@@ -175,7 +175,7 @@ public class RGN implements Notation {
      *                           used to indicate landing on a rosette.
      */
     public void appendMove(
-            RuleSet rules,
+            Engine rules,
             StringBuilder builder,
             Move move,
             boolean spaceBeforeRosette

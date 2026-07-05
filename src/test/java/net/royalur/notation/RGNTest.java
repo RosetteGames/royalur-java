@@ -8,7 +8,7 @@ import net.royalur.model.*;
 import net.royalur.model.dice.DiceFactory;
 import net.royalur.model.dice.DiceType;
 import net.royalur.model.path.PathType;
-import net.royalur.rules.RuleSet;
+import net.royalur.engine.Engine;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RGNTest {
 
-    public record ProvidedRules(String name, RuleSet rules) implements Arguments {
+    public record ProvidedRules(String name, Engine rules) implements Arguments {
         @Override
         public String toString() {
         return name;

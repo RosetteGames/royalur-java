@@ -4,8 +4,8 @@ import net.royalur.model.AbandonReason;
 import net.royalur.model.Move;
 import net.royalur.model.PlayerType;
 import net.royalur.model.dice.Roll;
-import net.royalur.rules.RuleSet;
-import net.royalur.rules.state.*;
+import net.royalur.engine.Engine;
+import net.royalur.engine.state.*;
 
 import javax.annotation.Nullable;
 
@@ -15,14 +15,14 @@ import javax.annotation.Nullable;
 public abstract class StateSource {
 
     public abstract RolledGameState createRolledState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType turn,
             Roll roll
     );
 
     public abstract MovedGameState createMovedState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType turn,
             Roll roll,
@@ -30,33 +30,33 @@ public abstract class StateSource {
     );
 
     public abstract WaitingForRollGameState createWaitingForRollState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType turn
     );
 
     public abstract WaitingForMoveGameState createWaitingForMoveState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType turn,
             Roll roll
     );
 
     public abstract ResignedGameState createResignedState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             PlayerType player
     );
 
     public abstract AbandonedGameState createAbandonedState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             AbandonReason abandonReason,
             @Nullable PlayerType player
     );
 
     public abstract EndGameState createEndState(
-            RuleSet rules,
+            Engine rules,
             long timeSinceGameStartMs,
             @Nullable PlayerType winner
     );
